@@ -14,7 +14,15 @@ class FoodTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        changeBackground()
         
+    }
+    
+    func changeBackground() {
+        let backgroundImage = UIImageView(frame: UIScreen.main.bounds)
+        backgroundImage.image = UIImage(named: "GP")
+        backgroundImage.contentMode = UIView.ContentMode.scaleToFill
+        self.tableView.backgroundView = backgroundImage
     }
     
     override func viewWillAppear(_ animated: Bool) {

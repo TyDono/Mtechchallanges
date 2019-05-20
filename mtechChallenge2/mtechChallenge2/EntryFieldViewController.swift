@@ -19,11 +19,17 @@ class EntryFieldViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         updateView()
-        //dateMaker()
+        changeBackground()
     }
     
- 
+    func changeBackground() {
+        let backgroundImage = UIImageView(frame: UIScreen.main.bounds)
+        backgroundImage.image = UIImage(named: "GP")
+        backgroundImage.contentMode = UIView.ContentMode.scaleToFill
+        self.view.insertSubview(backgroundImage, at: 0)
+    }
     
     func updateView() {
         guard let food = food else {return}
