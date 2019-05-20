@@ -12,7 +12,9 @@ class FoodTableViewCell: UITableViewCell {
     @IBOutlet var foodName: UILabel!
     @IBOutlet var foodCalorie: UILabel!
     @IBOutlet var foodDate: UILabel!
-     @IBOutlet weak var ratingControl: RatingControl!
+    @IBOutlet var ratingLabel: UILabel!
+    @IBOutlet var foodImage: UIImageView!
+    
     
     var food: Food? {
         didSet {

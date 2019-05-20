@@ -8,12 +8,14 @@
 
 import UIKit
 
-class EntryFieldViewController: UIViewController {
+class EntryFieldViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     @IBOutlet var FoodNameTF: UITextField!
     @IBOutlet var calorieTF: UITextField!
     @IBOutlet var dateMade: UIDatePicker!
-    @IBOutlet var foodRating: UIImageView!
+    @IBOutlet var ratingLabel: UILabel!
+    @IBOutlet var ratingStepper: UISlider!
     @IBOutlet var dateLabel: UILabel!
+    @IBOutlet var foodImage: UIImageView!
     
     var food: Food?
     
@@ -66,8 +68,20 @@ class EntryFieldViewController: UIViewController {
         
     }
     @IBAction func datePickerChanged(_ sender: UIDatePicker) {
+        
         let date = sender.date
         dateLabel.text = date.dateMaker()
+    }
+    
+    @IBAction func ratingStepperTapped(_ sender: Any) {
+        
+    }
+    
+    @IBAction func imageButtonTapped(_ sender: UIButton) {
+        let imagePickerController = UIImagePickerController()
+        imagePickerController.delegate = self
+        imagePickerController.sourceType = UIImagePickerController.SourceType.photoLibrary
+        present(imagePickerController, animated: true, completion: nil)
     }
     
 }

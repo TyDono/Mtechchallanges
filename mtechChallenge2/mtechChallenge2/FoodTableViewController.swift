@@ -14,11 +14,13 @@ class FoodTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         changeBackground()
         self.navigationItem.leftBarButtonItem = self.editButtonItem
     }
     
     func changeBackground() {
+        
         let backgroundImage = UIImageView(frame: UIScreen.main.bounds)
         backgroundImage.image = UIImage(named: "GP")
         backgroundImage.contentMode = UIView.ContentMode.scaleToFill

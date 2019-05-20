@@ -48,7 +48,5 @@ class Food: NSObject, NSCoding {
         let rating = aDecoder.decodeInteger(forKey: FoodKeys.rating)
         self.init(name: name, calorie: calorie, date: date, rating: rating)
     }
-    
-
 
 }
