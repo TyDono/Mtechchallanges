@@ -14,9 +14,17 @@ class FoodTableViewCell: UITableViewCell {
     @IBOutlet var foodDate: UILabel!
     @IBOutlet var foodRating: UIImageView!
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
+    var food: Food? {
+        didSet {
+            guard let food = food else { return }
+            updateCell(with: food)
+        }
+    }
+    
+    func updateCell(with food: Food) {
+        foodName.text = food.name
+        foodCalorie.text = String(food.calorie)
+        foodDate.text = food.date
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
