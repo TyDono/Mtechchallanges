@@ -49,12 +49,20 @@ class EntryFieldViewController: UIViewController {
     
     @IBAction func saveFoodButtonTapped(_ sender: Any) {
         
-        guard let addedFoods = FoodNameTF.text,
-            let calories = calorieTF.text,
-            let chosenDate = dateLabel.text else {return}
-        
-        food = Food(name: addedFoods, calorie: Int(calories) ?? 0, date: chosenDate, rating: 0)
-        performSegue(withIdentifier: "unwindFoodSegue", sender: self)
+        if FoodNameTF.text == "" || calorieTF.text == "" || dateLabel.text == "" {
+            let alert = UIAlertController(title: "Please fill in all fields", message: nil, preferredStyle: .alert)
+            let ok = UIAlertAction(title: "OK", style: .default, handler: nil)
+            alert.addAction(ok)
+            self.present(alert, animated: true, completion: nil)
+            return
+        } else {
+            guard let addedFoods = FoodNameTF.text,
+                let calories = calorieTF.text,
+                let chosenDate = dateLabel.text else {return}
+            
+            food = Food(name: addedFoods, calorie: Int(calories) ?? 0, date: chosenDate, rating: 0)
+            performSegue(withIdentifier: "unwindFoodSegue", sender: self)
+        }
         
     }
     @IBAction func datePickerChanged(_ sender: UIDatePicker) {

@@ -15,7 +15,7 @@ class FoodTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         changeBackground()
-        
+        self.navigationItem.leftBarButtonItem = self.editButtonItem
     }
     
     func changeBackground() {
@@ -30,14 +30,14 @@ class FoodTableViewController: UITableViewController {
         tableView.reloadData()
     }
     
-    // MARK: - Table view data source
+
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
+
         return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
+
         return foods.count
     }
     
@@ -48,6 +48,23 @@ class FoodTableViewController: UITableViewController {
         cell.food = foods[indexPath.row]
         
         return cell
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let entryFieldVC = segue.destination as? EntryFieldViewController else {return}
+        
+        if let indexPath = tableView.indexPathForSelectedRow,
+            segue.identifier == "edit" {
+            entryFieldVC.food = foods[indexPath.row]
+        }
+    }
+    
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            foods.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .fade)
+        }
+        
     }
     
     @IBAction func addFoodButtonTapped(_ sender: Any) {

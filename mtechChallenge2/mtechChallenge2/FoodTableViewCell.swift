@@ -12,7 +12,7 @@ class FoodTableViewCell: UITableViewCell {
     @IBOutlet var foodName: UILabel!
     @IBOutlet var foodCalorie: UILabel!
     @IBOutlet var foodDate: UILabel!
-    @IBOutlet var foodRating: UIImageView!
+     @IBOutlet weak var ratingControl: RatingControl!
     
     var food: Food? {
         didSet {
@@ -23,7 +23,7 @@ class FoodTableViewCell: UITableViewCell {
     
     func updateCell(with food: Food) {
         foodName.text = food.name
-        foodCalorie.text = String(food.calorie)
+        foodCalorie.text = "Calories: \(String(food.calorie))"
         foodDate.text = food.date
     }
 
