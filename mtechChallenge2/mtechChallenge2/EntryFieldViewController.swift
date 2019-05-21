@@ -38,10 +38,9 @@ class EntryFieldViewController: UIViewController, UIImagePickerControllerDelegat
         FoodNameTF.text = food.name
         calorieTF.text = String(food.calorie)
         dateLabel.text = food.date
+        ratingLabel.text = String(food.rating)
         // add rating in
     }
-    
-
     
     func asString() -> String {
         let formatter = DateFormatter()
@@ -51,7 +50,7 @@ class EntryFieldViewController: UIViewController, UIImagePickerControllerDelegat
     
     @IBAction func saveFoodButtonTapped(_ sender: Any) {
         
-        if FoodNameTF.text == "" || calorieTF.text == "" || dateLabel.text == "" {
+        if FoodNameTF.text == "" || calorieTF.text == "" || dateLabel.text == "" || ratingLabel.text == "" {
             let alert = UIAlertController(title: "Please fill in all fields", message: nil, preferredStyle: .alert)
             let ok = UIAlertAction(title: "OK", style: .default, handler: nil)
             alert.addAction(ok)
@@ -60,24 +59,28 @@ class EntryFieldViewController: UIViewController, UIImagePickerControllerDelegat
         } else {
             guard let addedFoods = FoodNameTF.text,
                 let calories = calorieTF.text,
+                let rating = ratingLabel.text,
                 let chosenDate = dateLabel.text else {return}
             
-            food = Food(name: addedFoods, calorie: Int(calories) ?? 0, date: chosenDate, rating: 0)
+            food = Food(name: addedFoods, calorie: Int(calories) ?? 0, date: chosenDate, rating: Int(rating) ?? 0)
             performSegue(withIdentifier: "unwindFoodSegue", sender: self)
         }
-        
     }
+    
     @IBAction func datePickerChanged(_ sender: UIDatePicker) {
         
         let date = sender.date
         dateLabel.text = date.dateMaker()
     }
     
-    @IBAction func ratingStepperTapped(_ sender: Any) {
-        
+    @IBAction func ratingStepperTapped(_ sender: UISlider) {
+
+        let currentValue = Int(sender.value)
+        ratingLabel.text = "\(currentValue)"
     }
     
     @IBAction func imageButtonTapped(_ sender: UIButton) {
+        
         let imagePickerController = UIImagePickerController()
         imagePickerController.delegate = self
         imagePickerController.sourceType = UIImagePickerController.SourceType.photoLibrary

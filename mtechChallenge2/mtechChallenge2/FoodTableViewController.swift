@@ -17,6 +17,11 @@ class FoodTableViewController: UITableViewController {
         
         changeBackground()
         self.navigationItem.leftBarButtonItem = self.editButtonItem
+        if let savedFoods = Food.loadFromFile() {
+            foods = savedFoods
+        } else {
+            print("no food items listed")
+        }
     }
     
     func changeBackground() {
@@ -52,6 +57,18 @@ class FoodTableViewController: UITableViewController {
         return cell
     }
     
+    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
+        let movedFood = foods.remove(at: fromIndexPath.row)
+        foods.insert(movedFood, at: to.row)
+        tableView.reloadData()
+        Food.saveToFiles(foods: foods)
+    }
+    
+    @objc func refreshedControlActivated(sender: UIRefreshControl) {
+        tableView.reloadData()
+        sender.endRefreshing()
+    }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard let entryFieldVC = segue.destination as? EntryFieldViewController else {return}
         
@@ -66,7 +83,7 @@ class FoodTableViewController: UITableViewController {
             foods.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
         }
-        
+        Food.saveToFiles(foods: foods)
     }
     
     @IBAction func addFoodButtonTapped(_ sender: Any) {
@@ -79,6 +96,7 @@ class FoodTableViewController: UITableViewController {
             print(food)
             foods.append(food)
             tableView.reloadData()
+            Food.saveToFiles(foods: foods)
         } else {
             print("error")
         }

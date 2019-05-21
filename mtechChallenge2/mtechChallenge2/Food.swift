@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class Food: NSObject, NSCoding {
+class Food: NSObject, Codable, NSCoding {
     
     struct FoodKeys {
         static let name = "name"
@@ -24,7 +24,7 @@ class Food: NSObject, NSCoding {
     let rating: Int
     
     static let DocumentsDirectory = FileManager().urls(for: .documentDirectory, in: .userDomainMask).first!
-    static let ArchiveURL = DocumentsDirectory.appendingPathComponent("foods")
+    static let archiveURL = DocumentsDirectory.appendingPathComponent("foods")
     
     init?(name: String, calorie: Int, date: String, rating: Int) {
         self.name = name
@@ -43,10 +43,28 @@ class Food: NSObject, NSCoding {
     required convenience init?(coder aDecoder: NSCoder) {
         guard let name = aDecoder.decodeObject(forKey: FoodKeys.name) as? String,
             let calorie = aDecoder.decodeObject(forKey: FoodKeys.calorie) as? Int,
-            let date = aDecoder.decodeObject(forKey: FoodKeys.date) as? String else {return nil}
+            let date = aDecoder.decodeObject(forKey: FoodKeys.date) as? String,
+            let rating = aDecoder.decodeObject(forKey: FoodKeys.date) as? Int else {return nil}
         
-        let rating = aDecoder.decodeInteger(forKey: FoodKeys.rating)
         self.init(name: name, calorie: calorie, date: date, rating: rating)
     }
+    
+}
 
+extension Food {
+    
+    //archive urls
+    static func saveToFiles(foods: [Food]) {
+        let propertyListEncoder = PropertyListEncoder()
+        let encodeData = try? propertyListEncoder.encode(foods)
+        try? encodeData?.write(to: archiveURL, options: .noFileProtection)
+        //encode
+    }
+    
+    static func loadFromFile() -> [Food]?  {
+        guard let loadedFood = try? Data(contentsOf: archiveURL) else {return nil}
+        let decoder = PropertyListDecoder()
+        return try? decoder.decode([Food].self, from: loadedFood)
+    }
+    
 }

@@ -27,6 +27,7 @@ class FoodTableViewCell: UITableViewCell {
         foodName.text = food.name
         foodCalorie.text = "Calories: \(String(food.calorie))"
         foodDate.text = food.date
+        ratingLabel.text = String(food.rating)
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
