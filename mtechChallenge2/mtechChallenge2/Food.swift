@@ -36,24 +36,6 @@ class Food: Codable {
         //self.foodImage = foodImage
     }
     
-//    func encode(with aCoder: NSCoder) {
-//        aCoder.encode(name, forKey: FoodKeys.name)
-//        aCoder.encode(calorie, forKey: FoodKeys.calorie)
-//        aCoder.encode(date, forKey: FoodKeys.date)
-//        aCoder.encode(rating, forKey: FoodKeys.rating)
-//        aCoder.encode(foodImage, forKey: FoodKeys.foodImage)
-//    }
-//
-//    required convenience init?(coder aDecoder: NSCoder) {
-//        guard let name = aDecoder.decodeObject(forKey: FoodKeys.name) as? String,
-//            let calorie = aDecoder.decodeObject(forKey: FoodKeys.calorie) as? Int,
-//            let date = aDecoder.decodeObject(forKey: FoodKeys.date) as? String,
-//            let rating = aDecoder.decodeObject(forKey: FoodKeys.date) as? Int,
-//            let foodImage = aDecoder.decodeObject(forKey: FoodKeys.foodImage) as? UIImage else {return nil}
-//
-//        self.init(name: name, calorie: calorie, date: date, rating: rating, foodImage: foodImage)
-//    }
-    
 }
 
 extension Food {
